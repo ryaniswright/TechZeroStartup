@@ -20,14 +20,14 @@
     .delete_task:hover {
         transform: scale(1.1);
     }
-
+    
     .save_edit:hover {
-      color: green;
+        color: green;
     }
-
+    
     .undo_edit:hover,
     .delete_task:hover {
-      color: red;
+        color: red;
     }
     
     .completed {
@@ -243,34 +243,34 @@
         arrow = (x.list == "today") ? "arrow_forward" : "arrow_back";
         completed = x.completed ? " completed" : "";
         if ((x.id == "today") | (x.id == "tomorrow")) {
-            t = '<tr id="task-' + x.id + '" class="task">' +
-                '  <td style="width:36px"></td>' +
-                '  <td><span id="editor-' + x.id + '">' +
-                '        <input id="input-' + x.id + '" style="height:22px" class="w3-input" ' +
-                '          type="text" autofocus placeholder="Add an item..."/>' +
-                '      </span>' +
-                '  </td>' +
-                '  <td style="width:72px">' +
-                '    <span id="filler-' + x.id + '" class="material-icons">more_horiz</span>' +
-                '    <span id="save_edit-' + x.id + '" hidden class="save_edit material-icons">done</span>' +
-                '    <span id="undo_edit-' + x.id + '" hidden class="undo_edit material-icons">cancel</span>' +
-                '  </td>' +
-                '</tr>';
+            t = `<tr id="task-${x.id}" class="task">
+                   <td style="width:36px"></td>
+                   <td><span id="editor-${x.id}">
+                         <input id="input-${x.id}" style="height:22px" class="w3-input" 
+                           type="text" autofocus placeholder="Add an item..."/>
+                       </span>
+                   </td>
+                   <td style="width:72px">
+                     <span id="filler-${x.id}" class="material-icons">more_horiz</span>
+                     <span id="save_edit-${x.id}" hidden class="save_edit material-icons">done</span>
+                     <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons">cancel</span>
+                    </td>
+                </tr>`;
         } else {
-            t = '<tr id="task-' + x.id + '" class="task">' +
-                '  <td><span id="move_task-' + x.id + '" class="move_task ' + x.list + ' material-icons">' + arrow + '</span></td>' +
-                '  <td><span id="description-' + x.id + '" class="description' + completed + '">' + x.description + '</span>' +
-                '      <span id="editor-' + x.id + '" hidden>' +
-                '        <input id="input-' + x.id + '" style="height:22px" class="w3-input" type="text" autofocus/>' +
-                '      </span>' +
-                '  </td>' +
-                '  <td>' +
-                '    <span id="edit_task-' + x.id + '" class="edit_task ' + x.list + ' material-icons">edit</span>' +
-                '    <span id="delete_task-' + x.id + '" class="delete_task material-icons">delete</span>' +
-                '    <span id="save_edit-' + x.id + '" hidden class="save_edit material-icons">done</span>' +
-                '    <span id="undo_edit-' + x.id + '" hidden class="undo_edit material-icons">cancel</span>' +
-                '  </td>' +
-                '</tr>';
+            t = `<tr id="task-${x.id}" class="task">
+                    <td><span id="move_task-${x.id}" class="move_task ${x.list} material-icons">${arrow}</span></td>
+                    <td><span id="description-${x.id}" class="description${completed}">${x.description }</span>
+                        <span id="editor-${x.id}" hidden>
+                            <input id="input-${x.id}" style="height:22px" class="w3-input" type="text" autofocus/>
+                        </span>
+                    </td>
+                    <td>
+                        <span id="edit_task-${x.id}" class="edit_task ${x.list} material-icons">edit</span>
+                        <span id="delete_task-${x.id}" class="delete_task material-icons">delete</span>
+                        <span id="save_edit-${x.id}" hidden class="save_edit material-icons">done</span>
+                        <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons">cancel</span>
+                    </td>
+                </tr>`;
         }
         $("#task-list-" + x.list).append(t);
         $("#current_input").val("")
