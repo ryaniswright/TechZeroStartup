@@ -4,7 +4,7 @@
       Taskbook
     </b>
     <label class="darkmode-box">
-      <input type="checkbox">
+      <input type="checkbox" id="darkmode-checkbox">
       <span class="darkmode-slider"></span>
     </label>
   </div>
@@ -15,3 +15,9 @@
   </span>
 </div>
 
+<script>
+  $("#darkmode-checkbox").bind("click", () => {
+    console.log(event.target.checked);
+    $("*").toggleClass("dark")
+  });
+</script>

@@ -251,7 +251,6 @@
                        </span>
                    </td>
                    <td style="width:72px">
-                     <span id="filler-${x.id}" class="material-icons">more_horiz</span>
                      <span id="save_edit-${x.id}" hidden class="save_edit material-icons">done</span>
                      <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons">cancel</span>
                     </td>
