@@ -10,6 +10,9 @@ from bottle import request, response
 # HTML request types
 from bottle import route, get, put, post, delete
 
+# static file return type
+from bottle import static_file
+
 # web page template processor
 from bottle import template
 
@@ -31,6 +34,10 @@ else:
 @route('/tasks')
 def tasks():
     return template("tasks.tpl")
+
+@route('/static/<filename:path>')
+def send_static(filename):
+    return static_file(filename, root='static/')
 
 @route('/login')
 def login():
