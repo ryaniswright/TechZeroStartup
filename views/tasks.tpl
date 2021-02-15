@@ -29,13 +29,27 @@
     .delete_task:hover {
         color: red;
     }
-    
-    .completed {
+
+    .description {
+        padding-left: 8px;
         text-decoration: line-through;
+        transition-duration: 0.2s;
+    }
+
+    .description:not(.completed) {
+        text-decoration-color: rgba(0, 0, 0, 0);
+    }
+
+    .description:not(.completed):hover {
+        text-decoration-color: rgba(0, 0, 0, 0.75);
     }
     
-    .description {
-        padding-left: 8px
+    .description.completed {
+        text-decoration-color: rgba(0, 0, 0, 1);
+    }
+
+    .description.completed:hover {
+        text-decoration-color: rgba(0, 0, 0, 0.25);
     }
 </style>
 
