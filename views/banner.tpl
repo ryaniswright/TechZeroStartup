@@ -9,9 +9,9 @@
     </label>
 
     <span class="w3-right">
-      <span class="w3-small w3-button w3-margin w3-round-small w3-white"> <a href = "/tasks"> Tasks </a></span>
-      <span class="w3-small w3-button w3-margin w3-round-small w3-yellow"> <a href = "/register"> Sign up </a></span>
-      <span id ="tc" class="w3-small w3-button w3-margin w3-round-small w3-yellow"> <a href="/login">Log In</a></span>
+      <a href="/tasks"><span class="w3-small w3-button w3-margin w3-round-small w3-white">Tasks</span></a>
+      <a href="/register"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow">Sign up</span></a>
+      <a href="/login"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow">Log In</span></a>
       <span class="w3-small w3-button w3-margin w3-round-small w3-red">Log Out</span>
     </span>
   </div>
