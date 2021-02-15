@@ -5,7 +5,7 @@
 <div class = "container">
  <div class="column is-4 is-offset-4">
   <br>
-  <h1 class="text-center"><b>LOGIN</b></h1>
+  <h1 class="text-center"><b>SIGN-UP</b></h1>
   <br>
   <form>
    <div class="form-group">
