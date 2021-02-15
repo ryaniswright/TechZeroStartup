@@ -276,19 +276,20 @@
     }
 
     function get_current_tasks() {
-        // remove the old tasks
-        $(".task").remove();
-        // display the new task editor
-        display_task({
-            id: "today",
-            list: "today"
-        })
-        display_task({
+        
+            // display the tasks
+        api_get_tasks(function(result) {
+            // remove the old tasks
+            $(".task").remove();
+            // display the new task editor
+            display_task({
+                id: "today",
+                list: "today"
+            })
+            display_task({
                 id: "tomorrow",
                 list: "tomorrow"
             })
-            // display the tasks
-        api_get_tasks(function(result) {
             for (const task of result.tasks) {
                 display_task(task);
             }
