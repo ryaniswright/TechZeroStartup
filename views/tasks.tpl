@@ -51,10 +51,26 @@
     .description.completed:hover {
         text-decoration-color: rgba(0, 0, 0, 0.25);
     }
+
+    .dark.description:not(.completed) {
+        text-decoration-color: rgba(255, 255, 255, 0);
+    }
+
+    .dark.description:not(.completed):hover {
+        text-decoration-color: rgba(255, 255, 255, 0.75);
+    }
+
+    .dark.description.completed {
+        text-decoration-color: rgba(255, 255, 255, 1);
+    }
+
+    .dark.description.completed:hover {
+        text-decoration-color: rgba(255, 255, 255, 0.25);
+    }
 </style>
 
 <div class="w3-row">
-    <div class="w3-col s6 w3-container w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-border-white">
+    <div class="w3-col s6 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
             <h1><i>Today</i></h1>
         </div>
@@ -62,7 +78,7 @@
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
-    <div class="w3-col s6 w3-container w3-topbar w3-bottombar w3-leftbar w3-rightbar w3-border-white">
+    <div class="w3-col s6 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
             <h1><i>Tomorrow</i></h1>
         </div>
