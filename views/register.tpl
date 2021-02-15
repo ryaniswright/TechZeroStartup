@@ -30,14 +30,15 @@
 
    <div class="form-group">
      <label for="exampleInputEmail1">Confirm Password</label>
-     <input type="password" class="form-control" id="Password2" placeholder="Password">
+     <input type="password" class="form-control" id="Password2" placeholder="Confirm Password">
    </div>
 
    <span class="form-check">
      <input type="checkbox" class="form-check-input" id="exampleCheck1">
      <label class="form-check-label" for="exampleCheck1">I have read & accept the <a href="#">Terms & Conditions</a>.</label>
    </span>
-
+   
+   <br><br>
    <button type="submit" class="btn btn-primary">Register</button>
   </form>
  </div>
