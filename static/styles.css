@@ -1,65 +1,19 @@
-.darkmode-box {
-    position: relative;
-    display: inline-block;
-    width: 5vmax;
-    height: 3vmax;
-}
-
-.darkmode-box input {
-    display: none;
-}
-
-.darkmode-slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ffffff;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-.darkmode-slider:before {
-    position: absolute;
-    content: "";
-    height: 2vmax;
-    width: 2vmax;
-    left: 0.5vmax;
-    bottom: 0.5vmax;
-    background-color: #000000;
-    -webkit-transition: .4s;
-    transition: .4s;
-}
-
-input:checked+.darkmode-slider {
-    background-color: #000000;
-}
-
-input:checked+.darkmode-slider:before {
-    -webkit-transform: translateX(2vmax);
-    -ms-transform: translateX(2vmax);
-    transform: translateX(2vmax);
-    background-color: #ffffff;
-}
-
 .dark {
-    background-color: black;
     color: white;
 }
 
-#tasks_button .w3-button,
-#register_button .w3-button,
-#login_button .w3-button,
-#logout_button .w3-button {
+html.dark,
+body.dark,
+div.dark {
+    background-color: black;
+    border-color: white !important;
+}
+
+#banner-buttons * .w3-button {
     cursor: pointer;
     transition: all 0.1s ease-in-out;
 }
 
-#tasks_button .w3-button:hover,
-#register_button .w3-button:hover,
-#login_button .w3-button:hover,
-#logout_button .w3-button:hover {
+#banner-buttons * .w3-button:hover {
     transform: scale(1.1);
 }
