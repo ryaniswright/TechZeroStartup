@@ -9,10 +9,10 @@
     </label>
 
     <span class="w3-right">
-      <a href="/tasks"><span class="w3-small w3-button w3-margin w3-round-small w3-white">Tasks</span></a>
-      <a href="/register"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow">Sign up</span></a>
-      <a href="/login"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow">Log In</span></a>
-      <span class="w3-small w3-button w3-margin w3-round-small w3-red">Log Out</span>
+      <a id="tasks_button" href="/tasks"><span class="w3-small w3-button w3-margin w3-round-small w3-white w3-hover-light-grey">Tasks</span></a>
+      <a id="register_button" href="/register"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow w3-hover-pale-yellow">Sign up</span></a>
+      <a id="login_button" href="/login"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow w3-hover-pale-yellow">Log In</span></a>
+      <a id="logout_button"><span class="w3-small w3-button w3-margin w3-round-small w3-red w3-hover-pale-red">Log Out</span></a>
     </span>
   </div>
 </div>

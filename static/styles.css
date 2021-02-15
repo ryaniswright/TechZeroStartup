@@ -48,3 +48,18 @@ input:checked+.darkmode-slider:before {
     background-color: black;
     color: white;
 }
+
+#tasks_button .w3-button,
+#register_button .w3-button,
+#login_button .w3-button,
+#logout_button .w3-button {
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+#tasks_button .w3-button:hover,
+#register_button .w3-button:hover,
+#login_button .w3-button:hover,
+#logout_button .w3-button:hover {
+    transform: scale(1.1);
+}
