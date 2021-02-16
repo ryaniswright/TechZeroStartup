@@ -36,37 +36,14 @@
         transition-duration: 0.2s;
     }
 
-    .description:not(.completed) {
-        text-decoration-color: rgba(0, 0, 0, 0);
-    }
-
-    .description:not(.completed):hover {
-        text-decoration-color: rgba(0, 0, 0, 0.5);
-    }
-    
-    .description.completed {
-        text-decoration-color: rgba(0, 0, 0, 1);
-    }
-
-    .description.completed:hover {
-        text-decoration-color: rgba(0, 0, 0, 0.5);
-    }
-
-    .dark.description:not(.completed) {
-        text-decoration-color: rgba(255, 255, 255, 0);
-    }
-
-    .dark.description:not(.completed):hover {
-        text-decoration-color: rgba(255, 255, 255, 0.5);
-    }
-
-    .dark.description.completed {
-        text-decoration-color: rgba(255, 255, 255, 1);
-    }
-
-    .dark.description.completed:hover {
-        text-decoration-color: rgba(255, 255, 255, 0.5);
-    }
+    .description:not(.completed) { text-decoration-color: rgba(0, 0, 0, 0); }
+    .description:not(.completed):hover { text-decoration-color: rgba(0, 0, 0, 0.5); }
+    .description.completed { text-decoration-color: rgba(0, 0, 0, 1); }
+    .description.completed:hover { text-decoration-color: rgba(0, 0, 0, 0.5); }
+    .dark.description:not(.completed) { text-decoration-color: rgba(255, 255, 255, 0); }
+    .dark.description:not(.completed):hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
+    .dark.description.completed { text-decoration-color: rgba(255, 255, 255, 1); }
+    .dark.description.completed:hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
 </style>
 
 <div class="w3-row">
