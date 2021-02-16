@@ -41,7 +41,7 @@
     }
 
     .description:not(.completed):hover {
-        text-decoration-color: rgba(0, 0, 0, 0.75);
+        text-decoration-color: rgba(0, 0, 0, 0.5);
     }
     
     .description.completed {
@@ -49,7 +49,7 @@
     }
 
     .description.completed:hover {
-        text-decoration-color: rgba(0, 0, 0, 0.25);
+        text-decoration-color: rgba(0, 0, 0, 0.5);
     }
 
     .dark.description:not(.completed) {
@@ -57,7 +57,7 @@
     }
 
     .dark.description:not(.completed):hover {
-        text-decoration-color: rgba(255, 255, 255, 0.75);
+        text-decoration-color: rgba(255, 255, 255, 0.5);
     }
 
     .dark.description.completed {
@@ -65,7 +65,7 @@
     }
 
     .dark.description.completed:hover {
-        text-decoration-color: rgba(255, 255, 255, 0.25);
+        text-decoration-color: rgba(255, 255, 255, 0.5);
     }
 </style>
 
