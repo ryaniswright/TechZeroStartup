@@ -15,8 +15,9 @@
 </div>
 
 <script>
+  dark = false;
   $("#darkmode-button").bind("click", () => {
-    console.log(event.target.checked);
     $("*").toggleClass("dark")
+    dark = !dark;
   });
 </script>

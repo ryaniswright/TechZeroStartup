@@ -20,6 +20,14 @@
     .delete_task:hover {
         transform: scale(1.1);
     }
+
+    .material-icons {
+        color: black;
+    }
+
+    .material-icons.dark {
+        color: white;
+    }
     
     .save_edit:hover {
         color: green;
@@ -34,6 +42,10 @@
         padding-left: 8px;
         text-decoration: line-through;
         transition-duration: 0.2s;
+        color: black;
+    }
+    .description.dark {
+        color: white;
     }
 
     .description:not(.completed) { text-decoration-color: rgba(0, 0, 0, 0); }
@@ -249,6 +261,7 @@
     function display_task(x) {
         arrow = (x.list == "today") ? "arrow_forward" : "arrow_back";
         completed = x.completed ? " completed" : "";
+        darkened = dark ? " dark": "";
         if ((x.id == "today") | (x.id == "tomorrow")) {
             t = `<tr id="task-${x.id}" class="task">
                    <td style="width:36px"></td>
@@ -264,17 +277,17 @@
                 </tr>`;
         } else {
             t = `<tr id="task-${x.id}" class="task">
-                    <td><span id="move_task-${x.id}" class="move_task ${x.list} material-icons">${arrow}</span></td>
-                    <td><span id="description-${x.id}" class="description${completed}">${x.description }</span>
+                    <td><span id="move_task-${x.id}" class="move_task ${x.list} material-icons${darkened}">${arrow}</span></td>
+                    <td><span id="description-${x.id}" class="description${completed}${darkened}">${x.description }</span>
                         <span id="editor-${x.id}" hidden>
-                            <input id="input-${x.id}" style="height:22px" class="w3-input" type="text" autofocus/>
+                            <input id="input-${x.id}" style="height:22px" class="w3-input${darkened}" type="text" autofocus/>
                         </span>
                     </td>
                     <td>
-                        <span id="edit_task-${x.id}" class="edit_task ${x.list} material-icons">edit</span>
-                        <span id="delete_task-${x.id}" class="delete_task material-icons">delete</span>
-                        <span id="save_edit-${x.id}" hidden class="save_edit material-icons">done</span>
-                        <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons">cancel</span>
+                        <span id="edit_task-${x.id}" class="edit_task ${x.list} material-icons${darkened}">edit</span>
+                        <span id="delete_task-${x.id}" class="delete_task material-icons${darkened}">delete</span>
+                        <span id="save_edit-${x.id}" hidden class="save_edit material-icons${darkened}">done</span>
+                        <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons${darkened}">cancel</span>
                     </td>
                 </tr>`;
         }
