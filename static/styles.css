@@ -9,6 +9,10 @@ div.dark {
     border-color: white !important;
 }
 
+input.dark {
+    color: black;
+}
+
 #banner-buttons * .w3-button {
     cursor: pointer;
     transition: all 0.1s ease-in-out;
