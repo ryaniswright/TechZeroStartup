@@ -19,5 +19,17 @@
   $("#darkmode-button").bind("click", () => {
     $("*").toggleClass("dark")
     dark = !dark;
+    $.ajax({
+        url: "api/darkmode/toggle",
+        type: "GET",
+        success: () => {
+          console.log("tog");
+        }
+    });
+  });
+  $(document).ready(() => {
+    if ({{darkmode}}) {
+      $("*").toggleClass("dark");
+    }
   });
 </script>

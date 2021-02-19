@@ -261,7 +261,7 @@
     function display_task(x) {
         arrow = (x.list == "today") ? "arrow_forward" : "arrow_back";
         completed = x.completed ? " completed" : "";
-        darkened = dark ? " dark": "";
+        darkened = {{darkmode}} ? " dark": "";
         if ((x.id == "today") | (x.id == "tomorrow")) {
             t = `<tr id="task-${x.id}" class="task">
                    <td style="width:36px"></td>

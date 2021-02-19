@@ -34,7 +34,10 @@ else:
 @route('/')
 @route('/tasks')
 def tasks():
-    return template("tasks.tpl") # Returns the rendered tasks.tpl
+    if request.get_cookie("darkmode") is None:
+        response.set_cookie("darkmode", "false")
+    darkmode = request.get_cookie("darkmode")
+    return template("tasks.tpl", darkmode = darkmode) # Returns the rendered tasks.tpl
 
 # Used for getting static files stored in the /static directory. Will be used for stylesheets and images later.
 @route('/static/<filename:path>')
@@ -44,12 +47,18 @@ def send_static(filename):
 # TODO Will be used for logins
 @route('/login')
 def login():
-    return template("login.tpl")
+    if request.get_cookie("darkmode") is None:
+        response.set_cookie("darkmode", "false")
+    darkmode = request.get_cookie("darkmode")
+    return template("login.tpl", darkmode = darkmode)
 
 # TODO Will be used for logins
 @route('/register')
-def login():
-    return template("register.tpl")
+def register():
+    if request.get_cookie("darkmode") is None:
+        response.set_cookie("darkmode", "false")
+    darkmode = request.get_cookie("darkmode")
+    return template("register.tpl", darkmode = darkmode)
 
 # ---------------------------
 # task REST api
@@ -150,6 +159,15 @@ def delete_task():
         return
     # return 200 Success
     response.headers['Content-Type'] = 'application/json' # Set header
+    return json.dumps({'success': True})
+
+# ---------------------------
+# darkmode api
+# ---------------------------
+@route('/api/darkmode/toggle')
+def tasks():
+    response.set_cookie("darkmode", "false" if request.get_cookie("darkmode") == "true" else "true", path="/")
+    response.headers['Content-Type'] = 'application/json'
     return json.dumps({'success': True})
 
 # Run the app based on environment
