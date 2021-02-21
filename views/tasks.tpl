@@ -58,6 +58,7 @@
     .dark.description.completed:hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
 </style>
 
+<br><br>
 <div class="w3-row">
     <div class="w3-col s6 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
@@ -72,6 +73,23 @@
             <h1><i>Tomorrow</i></h1>
         </div>
         <table id="task-list-tomorrow" class="w3-table">
+        </table>
+        <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
+    </div>
+    <br><br><br><br>    <br><br><br><br>    <br><br><br><br>
+        <div class="w3-col s6 w3-container">
+        <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
+            <h1><i>Tomorrow2 [moving disabled]</i></h1>
+        </div>
+        <table id="task-list-tomorrow2" class="w3-table">
+        </table>
+        <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
+    </div>
+        <div class="w3-col s6 w3-container">
+        <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
+            <h1><i>Tomorrow3 [moving disabled]</i></h1>
+        </div>
+        <table id="task-list-tomorrow3" class="w3-table">
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
@@ -152,7 +170,8 @@
                 console.log(result);
                 get_current_tasks();
             });
-    }
+        }
+
 
     function complete_task(event) {
         if ($("#current_input").val() != "") {
@@ -200,7 +219,7 @@
         console.log("save item", event.target.id)
         id = event.target.id.replace("save_edit-", "");
         console.log("desc to save = ", $("#input-" + id).val())
-        if ((id != "today") & (id != "tomorrow")) {
+        if ((id != "today") & (id != "tomorrow") & (id != "tomorrow2") & (id != "tomorrow3")) {
             api_update_task({
                     'id': id,
                     description: $("#input-" + id).val()
@@ -227,7 +246,7 @@
         id = event.target.id.replace("undo_edit-", "")
         console.log("undo", [id])
         $("#input-" + id).val("");
-        if ((id != "today") & (id != "tomorrow")) {
+        if ((id != "today") & (id != "tomorrow") & (id != "tomorrow2") & (id != "tomorrow3")) {
             // hide the editor
             $("#editor-" + id).prop('hidden', true);
             $("#save_edit-" + id).prop('hidden', true);
@@ -262,7 +281,7 @@
         arrow = (x.list == "today") ? "arrow_forward" : "arrow_back";
         completed = x.completed ? " completed" : "";
         darkened = {{darkmode}} ? " dark": "";
-        if ((x.id == "today") | (x.id == "tomorrow")) {
+        if ((x.id == "today") | (x.id == "tomorrow") | (x.id == "tomorrow2") | (x.id == "tomorrow3")) {
             t = `<tr id="task-${x.id}" class="task">
                    <td style="width:36px"></td>
                    <td><span id="editor-${x.id}">
@@ -309,6 +328,14 @@
             display_task({
                 id: "tomorrow",
                 list: "tomorrow"
+            })
+            display_task({
+                id: "tomorrow2",
+                list: "tomorrow2"
+            })
+            display_task({
+                id: "tomorrow3",
+                list: "tomorrow3"
             })
             for (const task of result.tasks) {
                 display_task(task);
