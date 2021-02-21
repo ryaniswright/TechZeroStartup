@@ -60,7 +60,7 @@
 
 <br><br>
 <div class="w3-row">
-    <div class="w3-col s6 w3-container">
+    <div class="w3-col l3 s12 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
             <h1><i>Today</i></h1>
         </div>
@@ -68,7 +68,7 @@
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
-    <div class="w3-col s6 w3-container">
+    <div class="w3-col l3 s12 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
             <h1><i>Tomorrow</i></h1>
         </div>
@@ -76,8 +76,7 @@
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
-    <br><br><br><br>    <br><br><br><br>    <br><br><br><br>
-        <div class="w3-col s6 w3-container">
+    <div class="w3-col l3 s12 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
             <h1><i>Tomorrow2 [moving disabled]</i></h1>
         </div>
@@ -85,7 +84,7 @@
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
-        <div class="w3-col s6 w3-container">
+    <div class="w3-col l3 s12 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
             <h1><i>Tomorrow3 [moving disabled]</i></h1>
         </div>
