@@ -156,19 +156,19 @@
     /* EVENT HANDLERS */
 
     function move_task(event) {
-        if ($("#current_input").val() != "") {
-            return
+        if ($("#current_input").val() != "") { // Make sure that we aren't currently editing a task
+            return // Exit the function
         }
-        console.log("move item", event.target.id)
-        id = event.target.id.replace("move_task-", "");
-        target_list = event.target.className.search("today") > 0 ? "tomorrow" : "today";
-        api_update_task({
-                'id': id,
-                'list': target_list
+        console.log("move item", event.target.id) // Print out the id of the task we want to move
+        id = event.target.id.replace("move_task-", ""); // Get the id of the task to move from the id of the move arrow
+        target_list = event.target.className.search("today") > 0 ? "tomorrow" : "today"; // Set the target list to the list that the list the task is not on
+        api_update_task({ // Update the task with the new data using the API
+                'id': id, //Task ID 
+                'list': target_list // Task list
             },
-            function(result) {
-                console.log(result);
-                get_current_tasks();
+            function(result) { // Success function
+                console.log(result); // Print the result
+                get_current_tasks(); // Update the tasks on the screen
             });
         }
 
