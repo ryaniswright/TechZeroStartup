@@ -9,4 +9,5 @@
 4. Create a python 3.8 environment with `pipenv --python 3.8`
 5. Download the requirements with `pipenv install` (you must do this every time you pull)
 6. Activate the virtual environment with `pipenv shell`
-7. Run `python swift.py` and navigate to `localhost:8080` in your web browser
+7. Run `python setup.py` to generate the prepopulated tasks
+8. Run `python swift.py` and navigate to `localhost:8080` in your web browser
