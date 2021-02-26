@@ -2,7 +2,7 @@
 
 ## Setup instructions
 ### *These instructions are a general set of steps that you will need to take to successfully install Taskbook on your local machine and run it. The commands may vary slightly depending on environment. If you do not know exactly what a command does, look it up so you can troubleshoot in the case of an error.*
-## First Time
+## Setup
 1. Make sure that you have python 3.8 installed and in your PATH
 2. Make sure that you have pipenv installed. To install, run `pip install pipenv`
 3. Clone this git repository using `git clone https://github.com/ryaniswright/TechZeroStartup.git`

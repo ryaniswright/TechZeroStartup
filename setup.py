@@ -10,7 +10,7 @@ if __name__ == "__main__":
         {"time":0.5, "description":"Do something fantastic", "list":"today", "completed":False},
         {"time":0.3, "description":"Do something remarkable", "list":"tomorrow", "completed":False},
         {"time":0.7, "description":"Do something unusual", "list":"tomorrow", "completed":True},
-        {"time":0.4, "description":"Do something unusual", "list":"tomorrow2", "completed":True},
-        {"time":0.6, "description":"Do something unusual", "list":"tomorrow3", "completed":False}
+        {"time":0.4, "description":"Do something unusual", "list":"the-next-day", "completed":True},
+        {"time":0.6, "description":"Do something unusual", "list":"the-day-after-that", "completed":False}
         
     ]) 

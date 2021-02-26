@@ -78,17 +78,17 @@
     </div>
     <div class="w3-col l3 s12 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
-            <h1><i>Tomorrow2 [moving disabled]</i></h1>
+            <h1><i>The Next Day</i></h1>
         </div>
-        <table id="task-list-tomorrow2" class="w3-table">
+        <table id="task-list-the-next-day" class="w3-table">
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
     <div class="w3-col l3 s12 w3-container">
         <div class="w3-row w3-xxlarge w3-bottombar w3-border-black w3-margin-bottom">
-            <h1><i>Tomorrow3 [moving disabled]</i></h1>
+            <h1><i>The Day After That</i></h1>
         </div>
-        <table id="task-list-tomorrow3" class="w3-table">
+        <table id="task-list-the-day-after-that" class="w3-table">
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
     </div>
@@ -154,13 +154,23 @@
 
     /* EVENT HANDLERS */
 
+    days = ["today","tomorrow","the-next-day","the-day-after-that"]
+
     function move_task(event) {
         if ($("#current_input").val() != "") { // Make sure that we aren't currently editing a task
             return // Exit the function
         }
         console.log("move item", event.target.id) // Print out the id of the task we want to move
         id = event.target.id.replace("move_task-", ""); // Get the id of the task to move from the id of the move arrow
-        target_list = event.target.className.search("today") > 0 ? "tomorrow" : "today"; // Set the target list to the list that the list the task is not on
+
+        for (let day of days) {
+            if (event.target.className.search(day) > 0) {
+                target_list = day;
+                break;
+            } 
+        };
+        
+
         api_update_task({ // Update the task with the new data using the API
                 'id': id, //Task ID 
                 'list': target_list // Task list
@@ -218,7 +228,7 @@
         console.log("save item", event.target.id)
         id = event.target.id.replace("save_edit-", "");
         console.log("desc to save = ", $("#input-" + id).val())
-        if ((id != "today") & (id != "tomorrow") & (id != "tomorrow2") & (id != "tomorrow3")) {
+        if ((id != "today") & (id != "tomorrow") & (id != "the-next-day") & (id != "the-day-after-that")) {
             api_update_task({
                     'id': id,
                     description: $("#input-" + id).val()
@@ -245,7 +255,7 @@
         id = event.target.id.replace("undo_edit-", "")
         console.log("undo", [id])
         $("#input-" + id).val("");
-        if ((id != "today") & (id != "tomorrow") & (id != "tomorrow2") & (id != "tomorrow3")) {
+        if ((id != "today") & (id != "tomorrow") & (id != "the-next-day") & (id != "the-day-after-that")) {
             // hide the editor
             $("#editor-" + id).prop('hidden', true);
             $("#save_edit-" + id).prop('hidden', true);
@@ -277,12 +287,32 @@
     }
 
     function display_task(x) {
-        arrow = (x.list == "today") ? "arrow_forward" : "arrow_back";
+        found = false;
+        arrows = [];
+        lists = [];
+        i = 3
+        for (let day of days) {
+            console.log(day);
+            if (day == x.list) {
+                found = true;
+                continue;
+            }
+            if (!found) {
+                arrows.push("arrow_back_ios")
+            } else {
+                arrows.push("arrow_forward_ios")
+            }
+            lists.push(day);
+            --i;
+        }
+        arrows.forEach((arrow)=>{console.log(arrow);});
         completed = x.completed ? " completed" : "";
         darkened = {{darkmode}} ? " dark": "";
-        if ((x.id == "today") | (x.id == "tomorrow") | (x.id == "tomorrow2") | (x.id == "tomorrow3")) {
+        if ((x.id == "today") | (x.id == "tomorrow") | (x.id == "the-next-day") | (x.id == "the-day-after-that")) {
             t = `<tr id="task-${x.id}" class="task">
-                   <td style="width:36px"></td>
+                   <td style="width:18px"></td>
+                   <td style="width:18px"></td>
+                   <td style="width:18px"></td>
                    <td><span id="editor-${x.id}">
                          <input id="input-${x.id}" style="height:22px" class="w3-input" 
                            type="text" autofocus placeholder="Add an item..."/>
@@ -294,9 +324,11 @@
                     </td>
                 </tr>`;
         } else {
-            t = `<tr id="task-${x.id}" class="task">
-                    <td><span id="move_task-${x.id}" class="move_task ${x.list} material-icons${darkened}">${arrow}</span></td>
-                    <td><span id="description-${x.id}" class="description${completed}${darkened}">${x.description }</span>
+            t = `<tr id="task-${x.id}" class="task">`
+            for (i = 0; i < 3; ++i) {
+                t+= `<td style="width:18px; padding: 0px;"><span id="move_task-${x.id}" class="move_task ${lists[i]} material-icons${darkened}">${arrows[i]}</span></td>`
+            }
+            t+=     `<td><span id="description-${x.id}" class="description${completed}${darkened}">${x.description }</span>
                         <span id="editor-${x.id}" hidden>
                             <input id="input-${x.id}" style="height:22px" class="w3-input${darkened}" type="text" autofocus/>
                         </span>
@@ -329,12 +361,12 @@
                 list: "tomorrow"
             })
             display_task({
-                id: "tomorrow2",
-                list: "tomorrow2"
+                id: "the-next-day",
+                list: "the-next-day"
             })
             display_task({
-                id: "tomorrow3",
-                list: "tomorrow3"
+                id: "the-day-after-that",
+                list: "the-day-after-that"
             })
             for (const task of result.tasks) {
                 display_task(task);
