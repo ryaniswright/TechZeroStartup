@@ -1,2 +1,7 @@
 # editor files
 /.vscode
+
+# database files
+*.db
+*.db-shm
+*.db.wal
