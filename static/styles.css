@@ -78,4 +78,3 @@ input.dark {
 .dark.description:not(.completed):hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
 .dark.description.completed { text-decoration-color: rgba(255, 255, 255, 1); }
 .dark.description.completed:hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
-
