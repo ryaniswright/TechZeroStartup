@@ -21,3 +21,61 @@ input.dark {
 #banner-buttons * .w3-button:hover {
     transform: scale(1.1);
 }
+
+/* tasks style */
+
+.save_edit,
+.undo_edit,
+.move_task,
+.description,
+.edit_task,
+.delete_task {
+    cursor: pointer;
+    transition: all 0.1s ease-in-out;
+}
+
+.save_edit:hover,
+.undo_edit:hover,
+.move_task:hover,
+.description:hover,
+.edit_task:hover,
+.delete_task:hover {
+    transform: scale(1.1);
+}
+
+.material-icons {
+    color: black;
+}
+
+.material-icons.dark {
+    color: white;
+}
+
+.save_edit:hover {
+    color: green;
+}
+
+.undo_edit:hover,
+.delete_task:hover {
+    color: red;
+}
+
+.description {
+    padding-left: 8px;
+    text-decoration: line-through;
+    transition-duration: 0.2s;
+    color: black;
+}
+.description.dark {
+    color: white;
+}
+
+.description:not(.completed) { text-decoration-color: rgba(0, 0, 0, 0); }
+.description:not(.completed):hover { text-decoration-color: rgba(0, 0, 0, 0.5); }
+.description.completed { text-decoration-color: rgba(0, 0, 0, 1); }
+.description.completed:hover { text-decoration-color: rgba(0, 0, 0, 0.5); }
+.dark.description:not(.completed) { text-decoration-color: rgba(255, 255, 255, 0); }
+.dark.description:not(.completed):hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
+.dark.description.completed { text-decoration-color: rgba(255, 255, 255, 1); }
+.dark.description.completed:hover { text-decoration-color: rgba(255, 255, 255, 0.5); }
+
