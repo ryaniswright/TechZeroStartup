@@ -157,11 +157,14 @@ function edit_task(event) {
     // move the text to the input editor
     $("#input-" + id).val($("#description-" + id).text());
     // hide the text display
-    $("#move_task-" + id).prop('hidden', true);
+    $("#move_task-" + id + "-0").prop('hidden', true);
+    $("#move_task-" + id + "-1").prop('hidden', true);
+    $("#move_task-" + id + "-2").prop('hidden', true);
     $("#description-" + id).prop('hidden', true);
     $("#edit_task-" + id).prop('hidden', true);
     $("#delete_task-" + id).prop('hidden', true);
     // show the editor
+    $("#color-" + id).prop('hidden', false);
     $("#editor-" + id).prop('hidden', false);
     $("#save_edit-" + id).prop('hidden', false);
     $("#undo_edit-" + id).prop('hidden', false);
@@ -176,7 +179,8 @@ function save_edit(event) {
     if ((id != "today") & (id != "tomorrow") & (id != "the-next-day") & (id != "the-day-after-that")) {
         api_update_task({
                 'id': id,
-                description: $("#input-" + id).val()
+                description: $("#input-" + id).val(),
+                color: $("#color-" + id).val()
             },
             function(result) {
                 console.log(result);
@@ -186,7 +190,8 @@ function save_edit(event) {
     } else {
         api_create_task({
                 description: $("#input-" + id).val(),
-                list: id
+                list: id,
+                color: $("#color-" + id).val()
             },
             function(result) {
                 console.log(result);
@@ -202,11 +207,14 @@ function undo_edit(event) {
     $("#input-" + id).val("");
     if ((id != "today") & (id != "tomorrow") & (id != "the-next-day") & (id != "the-day-after-that")) {
         // hide the editor
+        $("#color-" + id).prop('hidden', true);
         $("#editor-" + id).prop('hidden', true);
         $("#save_edit-" + id).prop('hidden', true);
         $("#undo_edit-" + id).prop('hidden', true);
         // show the text display
-        $("#move_task-" + id).prop('hidden', false);
+        $("#move_task-" + id + "-0").prop('hidden', false);
+        $("#move_task-" + id + "-1").prop('hidden', false);
+        $("#move_task-" + id + "-2").prop('hidden', false);
         $("#description-" + id).prop('hidden', false);
         $("#filler-" + id).prop('hidden', false);
         $("#edit_task-" + id).prop('hidden', false);
@@ -235,6 +243,7 @@ function display_task(x) {
     found = false;
     arrows = [];
     lists = [];
+    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
     i = 3
     for (let day of days) {
         console.log(day);
@@ -243,9 +252,9 @@ function display_task(x) {
             continue;
         }
         if (!found) {
-            arrows.push("arrow_back_ios")
+            arrows.push(vw > 600 ? "arrow_back_ios" : "keyboard_arrow_up")
         } else {
-            arrows.push("arrow_forward_ios")
+            arrows.push(vw > 600 ? "arrow_forward_ios" : "keyboard_arrow_down")
         }
         lists.push(day);
         --i;
@@ -255,9 +264,7 @@ function display_task(x) {
     darkened = {{darkmode}} ? " dark": "";
     if ((x.id == "today") | (x.id == "tomorrow") | (x.id == "the-next-day") | (x.id == "the-day-after-that")) {
         t = `<tr id="task-${x.id}" class="task">
-                <td style="width:18px"></td>
-                <td style="width:18px"></td>
-                <td style="width:18px"></td>
+                <td colspan="3" style="width:54px"><input id="color-${x.id}" type="color"></input></td>
                 <td><span id="editor-${x.id}">
                         <input id="input-${x.id}" style="height:22px" class="w3-input" 
                         type="text" autofocus placeholder="Add an item..."/>
@@ -271,9 +278,14 @@ function display_task(x) {
     } else {
         t = `<tr id="task-${x.id}" class="task">`
         for (i = 0; i < 3; ++i) {
-            t+= `<td style="width:18px; padding: 0px;"><span id="move_task-${x.id}" class="move_task ${lists[i]} material-icons${darkened}">${arrows[i]}</span></td>`
+            t+= `<td style="width:18px; padding: 0px;">
+                    <span id="move_task-${x.id}-${i}" class="move_task ${lists[i]} material-icons${darkened}">
+                        ${arrows[i]}
+                    </span>
+                    ${i==0 ? `<input hidden id="color-${x.id}" value="${x.color}" type="color"></input>` : ''}
+                </td>`
         }
-        t+=     `<td><span id="description-${x.id}" class="description${completed}${darkened}">${x.description }</span>
+        t+=     `<td><span id="description-${x.id}" class="description${completed}${darkened}" style="background-color: ${x.color};">${x.description }</span>
                     <span id="editor-${x.id}" hidden>
                         <input id="input-${x.id}" style="height:22px" class="w3-input${darkened}" type="text" autofocus/>
                     </span>
