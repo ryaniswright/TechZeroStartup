@@ -56,10 +56,18 @@ def register():
 # ---------------------------
 
 import json
-import dataset
+import sqlite3
 import time
 
-taskbook_db = dataset.connect('sqlite:///taskbook.db') # Create a python representation of the database
+taskbook_db = sqlite3.connect('taskbook.db') # Create a python representation of the database
+
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return d
+
+taskbook_db.row_factory = dict_factory
 
 # Returns the API version
 @get('/api/version')
@@ -71,8 +79,10 @@ def get_tasks():
     'return a list of tasks sorted by submit/modify time'
     response.headers['Content-Type'] = 'application/json' # Set headers
     response.headers['Cache-Control'] = 'no-cache'
-    task_table = taskbook_db.get_table('task') # Get the tasks table from the database
-    tasks = [dict(x) for x in task_table.find(order_by='time')] # List comprehension to get all tasks from the database
+    with taskbook_db:
+        taskbook_db_cursor = taskbook_db.cursor()
+        taskbook_db_cursor.execute('''SELECT * FROM task ORDER BY time ASC''')
+        tasks = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
     return { "tasks": tasks }
 
 @post('/api/tasks')
@@ -89,15 +99,17 @@ def create_task():
         response.status="400 Bad Request:"+str(e)
         return
     try:
-        task_table = taskbook_db.get_table('task') # Get the tasks table from the database
-        # Place the new task in the database
-        task_table.insert({
-            "time": time.time(),
-            "description":data['description'].strip(),
-            "list":data['list'],
-            "color":data['color'],
-            "completed":False
-        })
+        with taskbook_db:
+            taskbook_db_cursor = taskbook_db.cursor()
+            taskbook_db_cursor.execute('''INSERT INTO task (time, description, list, completed, color) VALUES (:time, :description, :list, :completed, :color)''', 
+                {
+                "time": time.time(),
+                "description":data['description'].strip(),
+                "list":data['list'],
+                "completed":False,
+                "color":data['color']
+                }
+            )
     except Exception as e: # If we got any database exceptions, show them here
         response.status="409 Bad Request:"+str(e)
     # return 200 Success
@@ -125,8 +137,9 @@ def update_task():
     if 'list' in data: # If we are changing the day of a task
         data['time'] = time.time() # Update the time of the task
     try:
-        task_table = taskbook_db.get_table('task') # Get the tasks table from the database
-        task_table.update(row=data, keys=['id']) # Update the tasks table appropriately based on the request
+        with taskbook_db:
+            taskbook_db_cursor = taskbook_db.cursor()
+            taskbook_db_cursor.execute('UPDATE task SET {} {} {} {} WHERE id = {}'.format(f"completed = {data['completed']}" if "completed" in data.keys() else "", f"list = '{data['list']}'" if "list" in data.keys() else "", f"description = '{data['description']}', " if "description" in data.keys() else "", f"color = '{data['color']}'" if "color" in data.keys() else "", data['id']))
     except Exception as e: # If we got any database exceptions, show them here
         response.status="409 Bad Request:"+str(e)
         return
@@ -144,8 +157,9 @@ def delete_task():
         response.status="400 Bad Request:"+str(e)
         return
     try:
-        task_table = taskbook_db.get_table('task') # Get the tasks table from the database
-        task_table.delete(id=data['id']) # Delete the row with the id specified in the request
+        with taskbook_db:
+            taskbook_db_cursor = taskbook_db.cursor()
+            taskbook_db_cursor.execute('''DELETE FROM task WHERE id = :id''', data)
     except Exception as e: # If we got any database exceptions, show them here
         response.status="409 Bad Request:"+str(e)
         return
