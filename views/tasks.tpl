@@ -246,7 +246,6 @@ function display_task(x) {
     const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
     i = 3
     for (let day of days) {
-        console.log(day);
         if (day == x.list) {
             found = true;
             continue;
@@ -259,12 +258,12 @@ function display_task(x) {
         lists.push(day);
         --i;
     }
-    arrows.forEach((arrow)=>{console.log(arrow);});
     completed = x.completed ? " completed" : "";
-    darkened = {{darkmode}} ? " dark": "";
+    ls = window.localStorage;
+    darkened = ls.getItem('darkmode') == 'true' ? " dark": "";
     if ((x.id == "today") | (x.id == "tomorrow") | (x.id == "the-next-day") | (x.id == "the-day-after-that")) {
         t = `<tr id="task-${x.id}" class="task">
-                <td colspan="3" style="width:54px"><input id="color-${x.id}" type="color"></input></td>
+                <td colspan="3" style="width:54px"><input id="color-${x.id}" value="#ffffff" type="color"></input></td>
                 <td><span id="editor-${x.id}">
                         <input id="input-${x.id}" style="height:22px" class="w3-input" 
                         type="text" autofocus placeholder="Add an item..."/>
@@ -285,7 +284,7 @@ function display_task(x) {
                     ${i==0 ? `<input hidden id="color-${x.id}" value="${x.color}" type="color"></input>` : ''}
                 </td>`
         }
-        t+=     `<td><span id="description-${x.id}" class="description${completed}${darkened}" style="background-color: ${x.color};">${x.description }</span>
+        t+=     `<td><span id="description-${x.id}" class="description${completed}${darkened}" style="background-color: ${x.color == '#ffffff' ? 'none' : x.color};">${x.description }</span>
                     <span id="editor-${x.id}" hidden>
                         <input id="input-${x.id}" style="height:22px" class="w3-input${darkened}" type="text" autofocus/>
                     </span>

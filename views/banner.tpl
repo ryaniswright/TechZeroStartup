@@ -12,20 +12,17 @@
 </div>
 
 <script>
-  dark = false;
+  ls = window.localStorage;
+  if (ls.getItem('darkmode') == null) {
+    ls.setItem('darkmode', 'false');
+  }
   $("#darkmode-button").bind("click", () => {
     $("*").toggleClass("dark")
-    dark = !dark;
-    $.ajax({
-        url: "api/darkmode/toggle",
-        type: "GET",
-        success: () => {
-          console.log("tog");
-        }
-    });
+    ls.setItem('darkmode', ls.getItem('darkmode') == 'false' ? 'true' : 'false')
+    console.log(ls.getItem('darkmode'));
   });
   $(document).ready(() => {
-    if ({{darkmode}}) {
+    if (ls.getItem('darkmode') == 'true') {
       $("*").toggleClass("dark");
     }
   });
