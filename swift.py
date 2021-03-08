@@ -15,6 +15,11 @@ from bottle import static_file
 
 # web page template processor
 from bottle import template
+import json
+import sqlite3
+import time
+
+taskbook_db = sqlite3.connect('taskbook.db') # Create a python representation of the database
 
 VERSION=0.1
 
@@ -46,20 +51,44 @@ def send_static(filename):
 def login():
     return template("login.tpl")
 
-# TODO Will be used for logins
 @route('/register')
 def register():
-    return template("register.tpl")
+    return template('register.tpl')
+
+# TODO Will be used for logins
+@post('/do_register')
+def register():
+    firstName = request.forms.get('firstName') #getting form data
+    #print(firstName)
+    lastName = request.forms.get('lastName')
+    #print(lastName)
+    email = request.forms.get('email')
+    #print(email)
+    password = request.forms.get('password')
+    #print(password)
+    password2 = request.forms.get('password2')
+    #print(password2)
+    
+    if password != password2: #checking if passwords match
+        return template('register.tpl') #redirects user if passwords do not match
+    # if passwords match
+    
+    with taskbook_db:
+        taskbook_db_cursor = taskbook_db.cursor()
+        taskbook_db_cursor.execute('''INSERT INTO user (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)''', 
+            {
+            "firstName":firstName,
+            "lastName":lastName,
+            "email":email,
+            "password":password,
+            }
+        )
+    return template('login.tpl')
 
 # ---------------------------
 # task REST api
 # ---------------------------
 
-import json
-import sqlite3
-import time
-
-taskbook_db = sqlite3.connect('taskbook.db') # Create a python representation of the database
 
 def dict_factory(cursor, row):
     d = {}
@@ -81,7 +110,7 @@ def get_tasks():
     response.headers['Cache-Control'] = 'no-cache'
     with taskbook_db:
         taskbook_db_cursor = taskbook_db.cursor()
-        taskbook_db_cursor.execute('''SELECT * FROM task ORDER BY time ASC''')
+        taskbook_db_cursor.execute('''SELECT * FROM task NATURAL JOIN user WHERE userID=u_id ORDER BY time ASC''')
         tasks = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
     return { "tasks": tasks }
 
@@ -101,8 +130,9 @@ def create_task():
     try:
         with taskbook_db:
             taskbook_db_cursor = taskbook_db.cursor()
-            taskbook_db_cursor.execute('''INSERT INTO task (time, description, list, completed, color) VALUES (:time, :description, :list, :completed, :color)''', 
+            taskbook_db_cursor.execute('''INSERT INTO task (userID, time, description, list, completed, color) VALUES (:userID, :time, :description, :list, :completed, :color)''', 
                 {
+                "userID":data['userID'],
                 "time": time.time(),
                 "description":data['description'].strip(),
                 "list":data['list'],
@@ -139,7 +169,7 @@ def update_task():
     try:
         with taskbook_db:
             taskbook_db_cursor = taskbook_db.cursor()
-            taskbook_db_cursor.execute('UPDATE task SET {} {} {} {} WHERE id = {}'.format(f"completed = {data['completed']}" if "completed" in data.keys() else "", f"list = '{data['list']}'" if "list" in data.keys() else "", f"description = '{data['description']}', " if "description" in data.keys() else "", f"color = '{data['color']}'" if "color" in data.keys() else "", data['id']))
+            taskbook_db_cursor.execute('UPDATE task SET {} {} {} {} {} WHERE id = {}'.format(f"userID = {data['userID']}" if "userID" in data.keys() else "", f"completed = {data['completed']}" if "completed" in data.keys() else "", f"list = '{data['list']}'" if "list" in data.keys() else "", f"description = '{data['description']}', " if "description" in data.keys() else "", f"color = '{data['color']}'" if "color" in data.keys() else "", data['id']))
     except Exception as e: # If we got any database exceptions, show them here
         response.status="409 Bad Request:"+str(e)
         return
