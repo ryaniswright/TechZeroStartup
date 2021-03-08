@@ -56,18 +56,18 @@ def register():
     return template('register.tpl')
 
 # TODO Will be used for logins
-@post('/do_register')
+@post('/register')
 def register():
     firstName = request.forms.get('firstName') #getting form data
-    #print(firstName)
+    print(firstName)
     lastName = request.forms.get('lastName')
-    #print(lastName)
+    print(lastName)
     email = request.forms.get('email')
-    #print(email)
+    print(email)
     password = request.forms.get('password')
-    #print(password)
+    print(password)
     password2 = request.forms.get('password2')
-    #print(password2)
+    print(password2)
     
     if password != password2: #checking if passwords match
         return template('register.tpl') #redirects user if passwords do not match
