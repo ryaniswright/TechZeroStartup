@@ -80,7 +80,7 @@ def login():
 #logout
 @route('/logout')
 def logout():
-    return template('login.tpl')
+    return redirect('/non_user_Tasks')
 
 #register -GET
 @route('/register')
