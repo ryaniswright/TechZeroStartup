@@ -1,7 +1,9 @@
 .dark {
     color: white;
 }
-
+a {
+    color: inherit;
+}
 html.dark,
 body.dark,
 div.dark {
