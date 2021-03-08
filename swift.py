@@ -5,7 +5,7 @@
 import os
 
 # web transaction objects
-from bottle import request, response
+from bottle import request, response, auth_basic
 
 # HTML request types
 from bottle import route, get, put, post, delete
@@ -35,8 +35,19 @@ else:
 # web application routes
 # ---------------------------
 
+def is_authenticated_user(email, password): #login authentication
+    taskbook_db_cursor = taskbook_db.cursor()
+    taskbook_db_cursor.execute("SELECT * FROM user WHERE email=:email", {"email": email}) #querying the database for given email
+    current_user = taskbook_db_cursor.fetchone() #setting query result to current_user
+        
+    if(current_user is None): #if email doesnt exist redirect to try again
+        return False
+    if(current_user['password'] != password): #if given password doesnt match password in db, redirect to try again
+        return False
+    
+    return True
+
 # When someone goes to the root directory or /tasks
-@route('/')
 @route('/tasks')
 def tasks():
     return template("tasks.tpl") # Returns the rendered tasks.tpl
@@ -47,39 +58,55 @@ def send_static(filename):
     return static_file(filename, root='static/')
 
 # TODO Will be used for logins
+@route('/')
 @route('/login')
 def login():
     return template("login.tpl")
+
+@post('/login')
+def login():
+    email = request.forms.get('email')
+    password = request.forms.get('password')
+    if is_authenticated_user(email, password):
+        return template('tasks.tpl')
+    return "login credentials incorrect try again"
+
+@route('/logout')
+def logout():
+    return template('login.tpl')
 
 @route('/register')
 def register():
     return template('register.tpl')
 
-# TODO Will be used for logins
+# registration - basic implementation
 @post('/register')
 def register():
     firstName = request.forms.get('firstName') #getting form data
-    print(firstName)
     lastName = request.forms.get('lastName')
-    print(lastName)
     email = request.forms.get('email')
-    print(email)
     password = request.forms.get('password')
-    print(password)
     password2 = request.forms.get('password2')
-    print(password2)
+    tosCheck = request.forms.get('tosCheck')
     
     if password != password2: #checking if passwords match
         return template('register.tpl') #redirects user if passwords do not match
-    # if passwords match
     
+    taskbook_db_cursor = taskbook_db.cursor()
+    taskbook_db_cursor.execute("SELECT * FROM user WHERE email=:email", {"email": email}) #querying the database for given email
+    current_user = taskbook_db_cursor.fetchone() #setting query result to current_user
+    if(current_user is not None): #if email exists already, redirect to try again with new email
+        return template('register.tpl')
+    
+    # if passwords match
+    #inserting the data into DATABASE
     with taskbook_db:
         taskbook_db_cursor = taskbook_db.cursor()
         taskbook_db_cursor.execute('''INSERT INTO user (firstName, lastName, email, password) VALUES (:firstName, :lastName, :email, :password)''', 
             {
             "firstName":firstName,
             "lastName":lastName,
-            "email":email,
+            "email":email.lower(),
             "password":password,
             }
         )
