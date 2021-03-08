@@ -1,7 +1,7 @@
 % include("header.tpl") 
 <div class="w3-container w3-border-white w3-black">
-  <div class="w3-xxxlarge w3-left s12 l6"><a id="tasks_button" href="/">
-      Taskbook 🗒</a>
+  <div class="w3-xxxlarge w3-left s12 l6">
+      Taskbook 🗒
   </div>
   <div class="w3-right s12 l6" id="banner-buttons">
     <a id="login_button" href="/login"><span class="w3-small w3-button w3-margin w3-round-small w3-yellow w3-hover-pale-yellow">Log In</span></a>
