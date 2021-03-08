@@ -31,12 +31,7 @@
      <label for="password2">Confirm Password</label>
      <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm Password">
    </div>
-
-   <span class="form-check">
-     <input type="checkbox" class="form-check-input" id="tosCheck1">
-     <label class="tosCheck1" for="exampleCheck1">I have read & accept the <a href="#">Terms & Conditions</a>.</label>
-   </span>
-   
+  
    <br><br>
    <button type="submit" class="btn btn-primary">Register</button>
   </form>
