@@ -5,7 +5,7 @@
 import os
 
 # web transaction objects
-from bottle import request, response, auth_basic
+from bottle import request, response, auth_basic, redirect
 
 # HTML request types
 from bottle import route, get, put, post, delete
@@ -48,9 +48,9 @@ def is_authenticated_user(email, password): #login authentication
     return True
 
 #home page
-@route('/')
+@route('/non_user_Tasks')
 def homeTasks():
-    return template('homeTasks.tpl')
+    return template('non_user_Tasks.tpl')
 
 # tasks page
 @route('/tasks')
@@ -63,6 +63,7 @@ def send_static(filename):
     return static_file(filename, root='static/')
 
 # login -  GET
+@route('/')
 @route('/login') 
 def login():
     return template("login.tpl")
@@ -73,7 +74,7 @@ def login():
     email = request.forms.get('email')
     password = request.forms.get('password')
     if is_authenticated_user(email, password):
-        return template('tasks.tpl')
+        return redirect('/tasks')
     return "login credentials incorrect try again"
 
 #logout
@@ -101,10 +102,10 @@ def register():
     current_user = taskbook_db_cursor.fetchone() #setting query result to current_user
     
     if(current_user is not None): #if email exists already, redirect to try again with new email
-        return template('register.tpl')
+        return redirect('/register')
     
     if password != password2: #checking if passwords match
-        return template('register.tpl') #redirects user if passwords do not match
+        return redirect('/register') #redirects user if passwords do not match
     
     # if passwords match
     #inserting the data into DATABASE
@@ -118,7 +119,7 @@ def register():
             "password":password,
             }
         )
-    return template('login.tpl')
+    return redirect('/login')
 
 # ---------------------------
 # task REST api
