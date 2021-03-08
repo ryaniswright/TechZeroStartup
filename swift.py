@@ -40,14 +40,19 @@ def is_authenticated_user(email, password): #login authentication
     taskbook_db_cursor.execute("SELECT * FROM user WHERE email=:email", {"email": email}) #querying the database for given email
     current_user = taskbook_db_cursor.fetchone() #setting query result to current_user
         
-    if(current_user is None): #if email doesnt exist redirect to try again
+    if(current_user is None): #if email doesnt exist
         return False
-    if(current_user['password'] != password): #if given password doesnt match password in db, redirect to try again
+    if(current_user['password'] != password): #if given password doesnt match password in db
         return False
     
     return True
 
-# When someone goes to the root directory or /tasks
+#home page
+@route('/')
+def homeTasks():
+    return template('homeTasks.tpl')
+
+# tasks page
 @route('/tasks')
 def tasks():
     return template("tasks.tpl") # Returns the rendered tasks.tpl
@@ -57,15 +62,12 @@ def tasks():
 def send_static(filename):
     return static_file(filename, root='static/')
 
-@route('/')
-def homeTasks():
-    return template('homeTasks.tpl')
-
-# TODO Will be used for logins
-@route('/login')
+# login -  GET
+@route('/login') 
 def login():
     return template("login.tpl")
 
+#login - POST
 @post('/login')
 def login():
     email = request.forms.get('email')
@@ -74,15 +76,17 @@ def login():
         return template('tasks.tpl')
     return "login credentials incorrect try again"
 
+#logout
 @route('/logout')
 def logout():
     return template('login.tpl')
 
+#register -GET
 @route('/register')
 def register():
     return template('register.tpl')
 
-# registration - basic implementation
+# registration - basic implementation - POST
 @post('/register')
 def register():
     firstName = request.forms.get('firstName') #getting form data
@@ -92,14 +96,15 @@ def register():
     password2 = request.forms.get('password2')
     tosCheck = request.forms.get('tosCheck')
     
-    if password != password2: #checking if passwords match
-        return template('register.tpl') #redirects user if passwords do not match
-    
     taskbook_db_cursor = taskbook_db.cursor()
     taskbook_db_cursor.execute("SELECT * FROM user WHERE email=:email", {"email": email}) #querying the database for given email
     current_user = taskbook_db_cursor.fetchone() #setting query result to current_user
+    
     if(current_user is not None): #if email exists already, redirect to try again with new email
         return template('register.tpl')
+    
+    if password != password2: #checking if passwords match
+        return template('register.tpl') #redirects user if passwords do not match
     
     # if passwords match
     #inserting the data into DATABASE
