@@ -1,6 +1,6 @@
 % include("header.tpl")
 <div class="w3-container w3-border-white w3-black">
-  <div class="w3-xxxlarge w3-left s12 l6"><a id="tasks_button" href="/">
+  <div class="w3-xxxlarge w3-left s12 l6"><a id="tasks_button" href="/non_user_Tasks">
       Taskbook 🗒</a>
   </div>
   <div class="w3-right s12 l6" id="banner-buttons">
