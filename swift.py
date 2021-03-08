@@ -57,8 +57,11 @@ def tasks():
 def send_static(filename):
     return static_file(filename, root='static/')
 
-# TODO Will be used for logins
 @route('/')
+def homeTasks():
+    return template('homeTasks.tpl')
+
+# TODO Will be used for logins
 @route('/login')
 def login():
     return template("login.tpl")
