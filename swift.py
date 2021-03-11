@@ -53,6 +53,7 @@ def homeTasks():
     return template('non_user_Tasks.tpl')
 
 # tasks page
+@route('/')
 @route('/tasks')
 def tasks():
     user = request.get_cookie("user", secret='some-secret-key')
@@ -66,7 +67,6 @@ def send_static(filename):
     return static_file(filename, root='static/')
 
 # login -  GET
-@route('/')
 @route('/login') 
 def login():
     user = request.get_cookie("user", secret='some-secret-key')
@@ -80,6 +80,7 @@ def login():
     email = request.forms.get('email')
     password = request.forms.get('password')
     if is_authenticated_user(email, password):
+        response.set_cookie("email", email, secret='some-secret-key')
         taskbook_db_cursor = taskbook_db.cursor()
         taskbook_db_cursor.execute('''SELECT * FROM user WHERE email=:email''', {"email": email})
         user = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
@@ -90,6 +91,12 @@ def login():
 #logout
 @route('/logout')
 def logout():
+    email = request.get_cookie("email", secret='some-secret-key')
+    taskbook_db_cursor = taskbook_db.cursor()
+    taskbook_db_cursor.execute('''SELECT * FROM user WHERE email=:email''', {"email": email})
+    user = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
+    response.set_cookie("user", user, secret='some-secret-key', expires=time.time())
+    response.set_cookie("email", email, secret='some-secret-key', expires=time.time())
     return redirect('/non_user_Tasks')
 
 #register -GET
