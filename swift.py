@@ -50,6 +50,9 @@ def is_authenticated_user(email, password): #login authentication
 #home page
 @route('/non_user_Tasks')
 def homeTasks():
+    user = request.get_cookie("user", secret='some-secret-key')
+    if user:
+        return redirect('/tasks')
     return template('non_user_Tasks.tpl')
 
 # tasks page
