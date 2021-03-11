@@ -55,6 +55,9 @@ def homeTasks():
 # tasks page
 @route('/tasks')
 def tasks():
+    user = request.get_cookie("user", secret='some-secret-key')
+    if not user:
+        return redirect('/login')
     return template("tasks.tpl") # Returns the rendered tasks.tpl
 
 # Used for getting static files stored in the /static directory. Will be used for stylesheets and images later.
@@ -66,6 +69,9 @@ def send_static(filename):
 @route('/')
 @route('/login') 
 def login():
+    user = request.get_cookie("user", secret='some-secret-key')
+    if user:
+        return redirect('/tasks')
     return template("login.tpl")
 
 #login - POST
@@ -74,8 +80,12 @@ def login():
     email = request.forms.get('email')
     password = request.forms.get('password')
     if is_authenticated_user(email, password):
+        taskbook_db_cursor = taskbook_db.cursor()
+        taskbook_db_cursor.execute('''SELECT * FROM user WHERE email=:email''', {"email": email})
+        user = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
+        response.set_cookie("user", user, secret='some-secret-key')
         return redirect('/tasks')
-    return "login credentials incorrect try again"
+    return '<h1>Your log-in credentials were incorrect!</h1>'
 
 #logout
 @route('/logout')
@@ -144,9 +154,10 @@ def get_tasks():
     'return a list of tasks sorted by submit/modify time'
     response.headers['Content-Type'] = 'application/json' # Set headers
     response.headers['Cache-Control'] = 'no-cache'
+    user = request.get_cookie("user", secret='some-secret-key') #getting logged in user's cookies
     with taskbook_db:
         taskbook_db_cursor = taskbook_db.cursor()
-        taskbook_db_cursor.execute('''SELECT * FROM task NATURAL JOIN user WHERE userID=u_id ORDER BY time ASC''')
+        taskbook_db_cursor.execute('''SELECT * FROM task WHERE userID=:user ORDER BY time ASC''',{"user":user[0]['u_id']}) #showing tasks made by logged in user
         tasks = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
     return { "tasks": tasks }
 
