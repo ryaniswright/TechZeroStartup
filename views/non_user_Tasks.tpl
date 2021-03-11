@@ -23,9 +23,9 @@
         </div>
         <table id="task-list-today" class="w3-table">
             <ul>
-                    <li>Get Homework Done</li><br>
-                    <li>Walk The Dog</li><br>
-                    <li>Take out Trash</li>
+                <li>Get Homework Done</li><br>
+                <li>Walk The Dog</li><br>
+                <li>Take out Trash</li>
             </ul>
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
@@ -36,10 +36,8 @@
         </div>
         <table id="task-list-tomorrow" class="w3-table">
             <ul>
-
-                    <li>Do Something Fun</li><br>
-                    <li>Phone a Friend</li>
-
+                <li>Do Something Fun</li><br>
+                <li>Phone a Friend</li>
             </ul>
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
@@ -50,10 +48,8 @@
         </div>
         <table id="task-list-the-next-day" class="w3-table">
             <ul>
-
-                    <li>Do Something Amazing</li><br>
-                    <li>Exercise</li>
-
+                <li>Do Something Amazing</li><br>
+                <li>Exercise</li>
             </ul>
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
@@ -64,9 +60,9 @@
         </div>
         <table id="task-list-the-day-after-that" class="w3-table">
             <ul>
-                    <li>Take a Break</li><br>
-                    <li>Take a Hike</li><br>
-                    <li>Finish Coding</li>
+                <li>Take a Break</li><br>
+                <li>Take a Hike</li><br>
+                <li>Finish Coding</li>
             </ul>
         </table>
         <div class="w3-row w3-bottombar w3-border-black w3-margin-bottom w3-margin-top"></div>
@@ -84,13 +80,9 @@ function api_get_tasks(success_function) {
     });
 }
 
-
 /* EVENT HANDLERS */
 
 days = ["today","tomorrow","the-next-day","the-day-after-that"]
-
-
-
 
 $(document).ready(function() {
     get_current_tasks()
