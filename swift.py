@@ -89,7 +89,7 @@ def login():
         user = taskbook_db_cursor.fetchall() # List comprehension to get all tasks from the database
         response.set_cookie("user", user, secret='some-secret-key')
         return redirect('/tasks')
-    return '<h1>Your log-in credentials were incorrect!</h1>'
+    return '<h1 class="text-center">Your log-in credentials were incorrect! Click <a href="/login">here</a> to go back.</h1>'
 
 #logout
 @route('/logout')
