@@ -174,6 +174,7 @@ def get_tasks():
 @post('/api/tasks')
 def create_task():
     'create a new task in the database'
+    user = request.get_cookie("user", secret='some-secret-key') #getting logged in user's cookies
     try:
         data = request.json # Get a reference to the request json
         for key in data.keys(): # For every key in the request
@@ -189,7 +190,7 @@ def create_task():
             taskbook_db_cursor = taskbook_db.cursor()
             taskbook_db_cursor.execute('''INSERT INTO task (userID, time, description, list, completed, color) VALUES (:userID, :time, :description, :list, :completed, :color)''', 
                 {
-                "userID":data['userID'],
+                "userID":user[0]['u_id'],
                 "time": time.time(),
                 "description":data['description'].strip(),
                 "list":data['list'],
