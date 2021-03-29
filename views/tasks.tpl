@@ -284,7 +284,9 @@ function display_task(x) {
                     ${i==0 ? `<input hidden id="color-${x.id}" value="${x.color}" type="color"></input>` : ''}
                 </td>`
         }
-        t+=     `<td><span id="description-${x.id}" class="description${completed}${darkened}" style="background-color: ${x.color == '#ffffff' ? 'none' : x.color};">${x.description }</span>
+        t+=     `<td>
+                    <span id="color-${x.id}" style="background-color: ${x.color}; width: 1ch; height: 17px; display: inline-block; margin: 0px"></span>
+                    <span id="description-${x.id}" class="description${completed}${darkened}" style="padding-left: 0px">${x.description }</span>
                     <span id="editor-${x.id}" hidden>
                         <input id="input-${x.id}" style="height:22px" class="w3-input${darkened}" type="text" autofocus/>
                     </span>
