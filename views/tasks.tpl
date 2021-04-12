@@ -265,13 +265,13 @@ function display_task(x) {
         t = `<tr id="task-${x.id}" class="task">
                 <td colspan="3" style="width:54px"><input id="color-${x.id}" value="#ffffff" type="color"></input></td>
                 <td><span id="editor-${x.id}">
-                        <input id="input-${x.id}" style="height:22px" class="w3-input" 
+                        <input id="input-${x.id}" style="height:22px; color: #000000;" class="w3-input"
                         type="text" autofocus placeholder="Add an item..."/>
                     </span>
                 </td>
                 <td style="width:72px">
-                    <span id="save_edit-${x.id}" hidden class="save_edit material-icons">done</span>
-                    <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons">cancel</span>
+                    <span id="save_edit-${x.id}" hidden class="save_edit material-icons${darkened}">done</span>
+                    <span id="undo_edit-${x.id}" hidden class="undo_edit material-icons${darkened}">cancel</span>
                 </td>
             </tr>`;
     } else {
