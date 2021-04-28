@@ -4,8 +4,17 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-bottle = "*"
-dataset = "*"
+bottle = "==0.12.19"
+dataset = "==1.5.0"
+alembic = "==1.5.8"
+banal = "==1.0.6"
+greenlet = "==1.0.0"
+python-dateutil = "==2.8.1"
+python-editor = "==1.0.4"
+six = "==1.15.0"
+Mako = "==1.1.4"
+MarkupSafe = "==1.1.1"
+SQLAlchemy = "==1.4.11"
 
 [dev-packages]
 
